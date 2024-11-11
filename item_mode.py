@@ -4,14 +4,8 @@ import game_framework
 from pico2d import load_image, get_events, clear_canvas, update_canvas
 from sdl2 import SDL_QUIT, SDL_KEYDOWN, SDLK_ESCAPE, SDLK_SPACE
 import play_mode
+from pannel import Pannel
 import game_world
-
-
-class Pannel:
-    def __init__(self):
-        self.image = load_image('item_select.png')
-    pass
-
 
 def init():
     global pannel
@@ -46,5 +40,6 @@ def update():
 
 def draw():
     clear_canvas()
-    pannel.image.draw(400,300)
+    #pannel.image.draw(400,300)
+    game_world.render()
     update_canvas()

@@ -127,7 +127,7 @@ class Boy:
     def fire_ball(self):
         if self.item == 'Ball':
             ball = Ball(self.x, self.y, self.face_dir * 10)
-            game_world.add_object(ball)
+            game_world.add_object(ball,1)
         elif self.item== 'BigBall':
             ball = BigBall(self.x, self.y, self.face_dir * 10)
-            game_world.add_object(ball)
+            game_world.add_object(ball,1)

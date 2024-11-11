@@ -2,8 +2,14 @@
 
 from pico2d import get_time, load_image, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDLK_LEFT, SDLK_RIGHT
 from state_machine import *
-from ball import Ball, BigBall
+from ball import Ball
 import game_world
+import game_framework
+
+
+
+
+
 
 class Idle:
     @staticmethod
@@ -54,6 +60,7 @@ class Sleep:
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
 
+
     @staticmethod
     def draw(boy):
         if boy.face_dir == 1:
@@ -82,7 +89,7 @@ class Run:
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
         boy.x += boy.dir * 5
-        pass
+
 
     @staticmethod
     def draw(boy):
@@ -98,7 +105,6 @@ class Boy:
         self.x, self.y = 400, 90
         self.face_dir = 1
         self.image = load_image('animation_sheet.png')
-        self.item=None
         self.state_machine = StateMachine(self)
         self.state_machine.start(Idle)
         self.state_machine.set_transitions(
@@ -108,7 +114,6 @@ class Boy:
                 Sleep: {right_down: Run, left_down: Run, right_up: Run, left_up: Run, space_down: Idle}
             }
         )
-        self.item ='None'
 
     def update(self):
         self.state_machine.update()
@@ -121,13 +126,6 @@ class Boy:
     def draw(self):
         self.state_machine.draw()
 
-    def set_item(self,item):
-        self.item = item
-
     def fire_ball(self):
-        if self.item == 'Ball':
-            ball = Ball(self.x, self.y, self.face_dir * 10)
-            game_world.add_object(ball,1)
-        elif self.item== 'BigBall':
-            ball = BigBall(self.x, self.y, self.face_dir * 10)
-            game_world.add_object(ball,1)
+        ball = Ball(self.x, self.y, self.face_dir * 10)
+        game_world.add_object(ball)
